@@ -8,13 +8,14 @@ class Config:
     TOKEN_EXPIRE_HOURS = 0
     TOKEN_EXPIRE_MINUTES = 0
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    BCRYPT_LOG_ROUNDS = 4
 
 
 class TestingConfig(Config):
     """Testing configuration"""
 
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URI", "DEV_DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URI")
 
 
 class DevelopmentConfig(Config):
@@ -28,6 +29,7 @@ class ProductionConfig(Config):
     """Production Configuration"""
 
     TOKEN_EXPIRE_HOURS = 1
+    BCRYPT_LOG_ROUNDS = 12
     SQLALCHEMY_DATABASE_URI = os.getenv("PROD_DATABASE_URI")
     PRESERVE_CONTEXT_ON_EXCEPTION = True
 

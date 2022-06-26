@@ -13,6 +13,7 @@ INSTALL_REQUIRES = [
     "PyJWT",
     "python-dotenv",
     "requests",
+    "psycopg2",
 ]
 
 EXTRAS_REQUIRE = {
