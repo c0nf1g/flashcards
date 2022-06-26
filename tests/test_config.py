@@ -7,7 +7,9 @@ def test_config_testing():
     app = create_app("testing")
     assert app.config["SECRET_KEY"] != "my code"
     assert app.config["TESTING"]
-    assert app.config["SQLALCHEMY_DATABASE_URI"] == os.getenv("TEST_DATABASE_URI")
+    assert app.config["SQLALCHEMY_DATABASE_URI"] == os.getenv(
+        "TEST_DATABASE_URI", "DEV_DATABASE_URI"
+    )
     assert app.config["TOKEN_EXPIRE_HOURS"] == 0
     assert app.config["TOKEN_EXPIRE_MINUTES"] == 0
 
