@@ -16,6 +16,10 @@ def create_app(config_name):
     app = Flask("flashcards")
     app.config.from_object(get_config(config_name))
 
+    from flashcards.api import api_blueprint
+
+    app.register_blueprint(api_blueprint)
+
     cors.init_app(app)
     db.init_app(app)
     migrate.init_app(app, db)
