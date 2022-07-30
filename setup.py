@@ -14,7 +14,7 @@ INSTALL_REQUIRES = [
     "python-dotenv",
     "requests",
     "psycopg2",
-    "werkzeug"
+    "werkzeug==2.1.2",
 ]
 
 EXTRAS_REQUIRE = {
