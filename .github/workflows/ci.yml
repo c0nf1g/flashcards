@@ -39,7 +39,7 @@ jobs:
           python-version: '3.8'
       
       - name: Test env
-        run: echo "$TEST_DATABASE_URI"
+        run: echo "${{env.TEST_DATABASE_URI}}"
       
       - name: Install dependencies
         run: |
