@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      -name: Set database urls in env
+      - name: Set database urls in env
         run: |
           export TEST_DATABASE_URI="postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB"
           export DEV_DATABASE_URI="postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB"
