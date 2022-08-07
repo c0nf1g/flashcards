@@ -47,7 +47,7 @@ jobs:
       - name: Set env varibles for flask
         run: |
           export FLASK_APP=run.py
-          export FLASK_ENV=development
+          export FLASK_ENV=testing
           export SECRET_KEY="test_secret_key"
 
       - name: Run migrations
