@@ -31,13 +31,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set database urls as env varibles
-        run: echo "$POSTGRES_USER"
-
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8'
+
+      - name: Set database urls as env varibles
+        run: echo "${{services.postgres.env.POSTGRES_USER}}"
       
       - name: Install dependencies
         run: |
