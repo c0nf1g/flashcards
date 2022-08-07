@@ -13,20 +13,17 @@ jobs:
       FLASK_APP: run.py
       FLASK_ENV: testing
       SECRET_KEY: test_secret_key
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: flashcards_test_db
-      TEST_DATABASE_URI: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB
-      DEV_DATABASE_URI: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB
-      PROD_DATABASE_URI: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB
+      TEST_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
+      DEV_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
+      PROD_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
 
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: ${{env.POSTGRES_USER}}
-          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
-          POSTGRES_DB: ${{env.POSTGRES_DB}}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: flashcards_db_test
         ports:
           - 5423:5432
         options: >-
