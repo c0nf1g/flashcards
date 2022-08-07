@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FLASK_APP: run.py
+      FLASK_ENV: testing
+      SECRET_KEY: test_secret_key
+      TEST_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
+      DEV_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
+      PROD_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: flashcards_db_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      
+      - name: Test env
+        run: echo "${{env.TEST_DATABASE_URI}}"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Run migrations
+        run: flask db upgrade
+
+      - name: Run tests and black linter with tox
+        run: tox
