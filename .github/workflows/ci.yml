@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      FLASK_APP: run.py
+      FLASK_ENV: testing
+      SECRET_KEY: test_secret_key
 
     services:
       postgres:
@@ -30,11 +34,10 @@ jobs:
 
       - name: Set database urls as env varibles
         run: |
-          env
+          echo $POSTGRES_USER
           export TEST_DATABASE_URI="postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB"
           export DEV_DATABASE_URI="postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB"
           export PROD_DATABASE_URI="postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB"
-          env
 
       - uses: actions/setup-python@v4
         with:
@@ -45,12 +48,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install -r requirements_dev.txt
-
-      - name: Set env varibles for flask
-        run: |
-          FLASK_APP=run.py
-          FLASK_ENV=testing
-          SECRET_KEY="test_secret_key"
 
       - name: Run migrations
         run: flask db upgrade
