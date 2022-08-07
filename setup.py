@@ -27,7 +27,7 @@ EXTRAS_REQUIRE = {
         "pytest-dotenv",
         "pytest-flake8",
         "pytest-flask",
-        "tox"
+        "tox",
     ]
 }
 
