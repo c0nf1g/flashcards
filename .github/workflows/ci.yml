@@ -13,14 +13,17 @@ jobs:
       FLASK_APP: run.py
       FLASK_ENV: testing
       SECRET_KEY: test_secret_key
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: flashcards_test_db
 
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: flashcards_test_db
+          POSTGRES_USER: ${{env.POSTGRES_USER}}
+          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
+          POSTGRES_DB: ${{env.POSTGRES_DB}}
         ports:
           - 5423:5432
         options: >-
@@ -34,9 +37,6 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8'
-
-      - name: Set database urls as env varibles
-        run: echo "${{services.postgres.env.POSTGRES_USER}}"
       
       - name: Install dependencies
         run: |
