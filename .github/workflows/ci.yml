@@ -16,6 +16,9 @@ jobs:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: flashcards_test_db
+      TEST_DATABASE_URI: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB
+      DEV_DATABASE_URI: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB
+      PROD_DATABASE_URI: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@127.0.0.1/$POSTGRES_DB
 
     services:
       postgres:
