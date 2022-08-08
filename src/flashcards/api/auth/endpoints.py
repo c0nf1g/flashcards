@@ -11,6 +11,7 @@ from flashcards.api.auth.business import (
     process_registration_request,
     process_login_request,
     get_logged_in_user,
+    process_logout_request,
 )
 
 auth_ns = Namespace(name="auth", validate=True)
@@ -52,8 +53,22 @@ class LoginUser(Resource):
 class GetUser(Resource):
     @auth_ns.doc(security="Bearer")
     @auth_ns.response(int(HTTPStatus.OK), "Token is valid.", user_model)
-    @auth_ns.response(int(HTTPStatus.UNAUTHORIZED), "Token is invalid or expired")
     @auth_ns.response(int(HTTPStatus.BAD_REQUEST), "Validation error.")
+    @auth_ns.response(int(HTTPStatus.UNAUTHORIZED), "Token is invalid or expired.")
+    @auth_ns.response(int(HTTPStatus.INTERNAL_SERVER_ERROR), "Internal server error.")
     @auth_ns.marshal_with(user_model)
     def get(self):
         return get_logged_in_user()
+
+
+@auth_ns.route("/logout", endpoint="auth_logout")
+class LogoutUser(Resource):
+    @auth_ns.doc(security="Bearer")
+    @auth_ns.response(
+        int(HTTPStatus.OK), "Log out succeeded, token is no longer valid.", user_model
+    )
+    @auth_ns.response(int(HTTPStatus.BAD_REQUEST), "Validation error.")
+    @auth_ns.response(int(HTTPStatus.UNAUTHORIZED), "Token is invalid or expired.")
+    @auth_ns.response(int(HTTPStatus.INTERNAL_SERVER_ERROR), "Internal server error.")
+    def post(self):
+        return process_logout_request()

@@ -1,5 +1,5 @@
 from flask_restx import Model
-from flask_restx.fields import String, Boolean
+from flask_restx.fields import String
 from flask_restx.reqparse import RequestParser
 from flask_restx.inputs import email
 
@@ -27,7 +27,7 @@ user_model = Model(
     {
         "email": String,
         "public_id": String,
-        "registered_on": String(attribute="registered_on_str"),
+        "registered_on": String(attribute="registered_on"),
         "token_expires_in": String,
-    }
+    },
 )

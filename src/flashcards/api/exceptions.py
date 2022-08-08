@@ -1,29 +1,25 @@
-import typing as t
-from _typeshed.wsgi import WSGIEnvironment
-
+from typing import Dict, Text, Any, List, Tuple, Optional
 from werkzeug.exceptions import Unauthorized
+
+WSGIEnvironment = Dict[Text, Any]
 
 
 class ApiUnauthorized(Unauthorized):
     def __init__(
-            self,
-            description="Unauthorized",
-            error=None,
-            error_description=None,
+        self,
+        description="Unauthorized",
+        error=None,
+        error_description=None,
     ):
         self.description = description
-        self.www_auth_value = self.__get_www_auth_value(
-            error, error_description
-        )
+        self.www_auth_value = self.__get_www_auth_value(error, error_description)
         Unauthorized.__init__(
             self, description=description, response=None, www_authenticate=None
         )
 
     def get_headers(
-        self,
-        environ: t.Optional["WSGIEnvironment"] = None,
-        scope: t.Optional[dict] = None
-    ) -> t.List[t.Tuple[str, str]]:
+        self, environ: Optional["WSGIEnvironment"] = None, scope: Optional[dict] = None
+    ) -> List[Tuple[str, str]]:
         return [("Content-Type", "text/html"), ("WWW-Authenticate", self.www_auth_value)]
 
     def __get_www_auth_value(self, error, error_description):
@@ -32,4 +28,4 @@ class ApiUnauthorized(Unauthorized):
             www_auth_value += f', error="{error}"'
         if error_description:
             www_auth_value += f', error_description="{error_description}"'
-        return error_description
+        return www_auth_value

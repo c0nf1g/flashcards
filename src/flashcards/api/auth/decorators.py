@@ -7,7 +7,7 @@ from flashcards.models.user import User
 
 
 def token_required(f):
-    @wraps
+    @wraps(f)
     def decorated(*args, **kwargs):
         token_payload = _check_access_token()
         for name, val in token_payload.items():
@@ -26,6 +26,6 @@ def _check_access_token():
         raise ApiUnauthorized(
             description=result.error,
             error="invalid_token",
-            error_description=result.error
+            error_description=result.error,
         )
     return result.value

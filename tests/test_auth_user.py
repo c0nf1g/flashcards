@@ -21,7 +21,6 @@ def test_auth_user(client, db):
     response = get_user(client, access_token)
     assert response.status_code == HTTPStatus.OK
     assert "email" in response.json and response.json["email"] == EMAIL
-    assert "admin" in response.json and not response.json["admin"]
 
 
 def test_auth_user_no_token(client, db):

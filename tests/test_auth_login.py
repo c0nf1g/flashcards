@@ -12,10 +12,7 @@ def test_login(client, db):
     response = login_user(client)
     assert response.status_code == HTTPStatus.OK
     assert "status" in response.json and response.json["status"] == "success"
-    assert (
-        "message" in response.json
-        and response.json["message"] == SUCCESS
-    )
+    assert "message" in response.json and response.json["message"] == SUCCESS
     assert "token_type" in response.json and response.json["token_type"] == "bearer"
     assert "expires_in" in response.json and response.json["expires_in"] == 5
     assert "access_token" in response.json

@@ -5,6 +5,7 @@ from flask_restx import abort
 
 from flashcards import db
 from flashcards.api.auth.decorators import token_required
+from flashcards.models.token_blacklist import BlacklistedToken
 from flashcards.models.user import User
 from flashcards.utils.datetime_util import (
     remaining_fromtimestamp,
@@ -50,6 +51,17 @@ def process_login_request(email, password):
         status_code=HTTPStatus.OK,
         message="successfully logged in",
     )
+
+
+@token_required
+def process_logout_request():
+    access_token = process_logout_request.token
+    expires_at = process_logout_request.expires_at
+    blacklisted_token = BlacklistedToken(access_token, expires_at)
+    db.session.add(blacklisted_token)
+    db.session.commit()
+    response_dict = dict(status="success", message="successfully logged out")
+    return response_dict, HTTPStatus.OK
 
 
 def _create_auth_successful_response(token, status_code, message):

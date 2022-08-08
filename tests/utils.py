@@ -26,3 +26,9 @@ def get_user(test_client, access_token):
     return test_client.get(
         url_for("api.auth_user"), headers={"Authorization": f"Bearer {access_token}"}
     )
+
+
+def logout_user(test_client, access_token):
+    return test_client.post(
+        url_for("api.auth_logout"), headers={"Authorization": f"Bearer {access_token}"}
+    )
