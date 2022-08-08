@@ -13,11 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FLASK_APP: run.py
-      FLASK_ENV: testing
-      SECRET_KEY: test_secret_key
-      TEST_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
-      DEV_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
-      PROD_DATABASE_URI: postgresql://postgres:postgres@127.0.0.1/flashcards_db_test
+      FLASK_ENV: "testing"
+      TEST_DATABASE_URI: "postgresql://postgres:postgres@127.0.0.1/flashcards_db_test"
+      DEV_DATABASE_URI: "postgresql://postgres:postgres@127.0.0.1/flashcards_db_test"
+      PROD_DATABASE_URI: "postgresql://postgres:postgres@127.0.0.1/flashcards_db_test"
 
     services:
       postgres:
@@ -52,4 +51,6 @@ jobs:
         run: flask db upgrade
 
       - name: Run tests and black linter with tox
+        env:
+          SECRET_KEY: "test_secret_key"
         run: tox
