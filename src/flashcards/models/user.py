@@ -14,7 +14,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     username = db.Column(db.String(45), unique=True, nullable=False)
-    registered_on = db.Column(db.DateTime, default=utc_now())
+    registered_on = db.Column(db.DateTime, default=utc_now)
     password_hash = db.Column(db.String(128), nullable=False)
     public_id = db.Column(db.String(36), unique=True, default=lambda: str(uuid4()))
 

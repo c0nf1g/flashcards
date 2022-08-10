@@ -29,3 +29,12 @@ def test_login_email_does_not_exist(client, db):
     assert response.status_code == HTTPStatus.UNAUTHORIZED
     assert "message" in response.json and response.json["message"] == UNAUTHORISED
     assert "access_token" not in response.json
+
+
+def test_login_invalid_password(client, db):
+    invalid_password = "invalid password"
+    register_user(client)
+    response = login_user(client, password=invalid_password)
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+    assert "message" in response.json and response.json["message"] == UNAUTHORISED
+    assert "access_token" not in response.json
