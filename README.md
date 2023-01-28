@@ -9,3 +9,9 @@ API for Flashcards project
 ```python -m pip install --upgrade pip```
 
 ```pip install -e .[dev]```
+
+```flask db init```
+
+```flask db upgrade```
+
+```flask run```
