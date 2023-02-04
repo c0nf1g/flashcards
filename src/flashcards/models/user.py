@@ -17,7 +17,6 @@ class User(db.Model):
     registered_on = db.Column(db.DateTime, default=utc_now)
     password_hash = db.Column(db.String(128), nullable=False)
     public_id = db.Column(db.String(36), unique=True, default=lambda: str(uuid4()))
-    sets = db.relationship('Set', backref='cards_user')
 
     def __repr__(self):
         return f"<User {self.username}>"

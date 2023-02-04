@@ -17,12 +17,8 @@ def create_app(config_name):
     app.config.from_object(get_config(config_name))
 
     from flashcards.api import api_blueprint
-    from flashcards.views import main_blueprint
-    from flashcards.views import auth_blueprint
 
     app.register_blueprint(api_blueprint)
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(auth_blueprint)
 
     cors.init_app(app)
     db.init_app(app)
