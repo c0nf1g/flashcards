@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restx import Api
 
-from flashcards.api.sentence.endpoints import sentence_ns
+from api.sentence.endpoints import sentence_ns
 from flashcards.api.set.endpoints import set_ns
 from flashcards.api.auth.endpoints import auth_ns
 from flashcards.api.card.endpoints import card_ns
