@@ -6,7 +6,7 @@ class Set(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('cards_user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('sets'))
+    user = db.relationship('User', backref=db.backref('sets', cascade="delete"))
 
     def __repr__(self):
         return f"<Set {self.name}>"
