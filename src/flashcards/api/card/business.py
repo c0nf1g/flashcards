@@ -56,27 +56,45 @@ def retrieve_card(card_id):
 
 @token_required
 def update_card(card_id, request_data):
+    request_data = check_request_data(request_data)
     card = Card.find_by_id(card_id)
     set = get_set(card.set_id, update_card.public_id)
-    sentences = request_data.pop("sentences")
+    sentences = []
+    if request_data.get("sentences"):
+        sentences = request_data.pop("sentences")
     if card and set:
         for key, value in request_data.items():
             setattr(card, key, value)
-            if key == "learned" and value:
-                setattr(card, "learned_at", utc_now())
-            elif key == "learned" and not value:
-                setattr(card, "learned_at", None)
+            check_learned(card, key, value)
+        update_sentences(card, sentences)
+        db.session.commit()
+        return card
+    else:
+        abort_card_not_exist(card_id)
 
+
+def check_request_data(request_data):
+    new_request_data = {}
+    for key, value in request_data.items():
+        if value is not None:
+            new_request_data[key] = request_data[key]
+    return new_request_data
+
+
+def check_learned(card, key, value):
+    if key == "learned" and value:
+        setattr(card, "learned_at", utc_now())
+    elif key == "learned" and not value:
+        setattr(card, "learned_at", None)
+
+
+def update_sentences(card, sentences):
+    if sentences:
         for s in card.sentences:
             db.session.delete(s)
         for s in sentences:
             sentence = Sentence(value=s, card_id=card.id)
             db.session.add(sentence)
-
-        db.session.commit()
-        return card
-    else:
-        abort_card_not_exist(card_id)
 
 
 @token_required

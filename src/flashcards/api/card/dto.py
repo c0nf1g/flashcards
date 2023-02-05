@@ -33,10 +33,18 @@ update_card_model = create_card_model.clone("Updated card")
 update_card_model.pop("set_id")
 update_card_model.update({"learned": Boolean})
 
-update_card_reqparser = create_card_reqparser.copy()
-update_card_reqparser.remove_argument("set_id")
+update_card_reqparser = RequestParser(bundle_errors=True)
 update_card_reqparser.add_argument(
     name="learned", type=bool, location="json", required=False
+)
+update_card_reqparser.add_argument(
+    name="word", location="json", required=False, nullable=False
+)
+update_card_reqparser.add_argument(
+    name="definition", location="json", required=False, nullable=False
+)
+update_card_reqparser.add_argument(
+    name="sentences", type=list, location="json", required=False, nullable=False
 )
 
 card_pagination_reqparser = RequestParser(bundle_errors=True)
