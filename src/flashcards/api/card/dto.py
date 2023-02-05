@@ -11,8 +11,8 @@ create_card_model = Model(
         "word": String,
         "definition": String,
         "set_id": Integer,
-        "sentences": List(String)
-    }
+        "sentences": List(String),
+    },
 )
 
 create_card_reqparser = RequestParser(bundle_errors=True)
@@ -26,7 +26,7 @@ create_card_reqparser.add_argument(
     name="set_id", type=positive, location="json", required=True, nullable=False
 )
 create_card_reqparser.add_argument(
-    name="sentences", type=list, location='json', required=True, nullable=False
+    name="sentences", type=list, location="json", required=True, nullable=False
 )
 
 update_card_model = create_card_model.clone("Updated card")
@@ -47,7 +47,12 @@ card_pagination_reqparser.add_argument(
     name="page", location="args", type=positive, required=False, default=1
 )
 card_pagination_reqparser.add_argument(
-    name="per_page", location="args", type=positive, required=False, choices=[5, 10, 25, 50, 100], default=10
+    name="per_page",
+    location="args",
+    type=positive,
+    required=False,
+    choices=[5, 10, 25, 50, 100],
+    default=10,
 )
 
 
@@ -55,16 +60,16 @@ card_set_model = Model(
     "Card Set",
     {
         "id": Integer,
-        "name": String
-    }
+        "name": String,
+    },
 )
 
 card_sentence_model = Model(
     "Card Sentence",
     {
         "id": Integer,
-        "value": String
-    }
+        "value": String,
+    },
 )
 
 card_model = Model(
@@ -76,8 +81,8 @@ card_model = Model(
         "definition": String,
         "learned": Boolean,
         "learned_at": String(attribute="learned_at"),
-        "sentences": List(Nested(card_sentence_model))
-    }
+        "sentences": List(Nested(card_sentence_model)),
+    },
 )
 
 card_pagination_model = generate_pagination_model(card_model)

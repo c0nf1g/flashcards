@@ -35,7 +35,9 @@ def retrieve_card_list(set_id, page, per_page):
     if not set:
         error = f"Set with id {set_id} does not exist."
         abort(HTTPStatus.NOT_FOUND, error, status="fail")
-    pagination = Card.query.filter_by(set_id=set_id).paginate(page=page, per_page=per_page)
+    pagination = Card.query.filter_by(set_id=set_id).paginate(
+        page=page, per_page=per_page
+    )
     response_data = marshal(pagination, card_pagination_model)
     response_data["links"] = add_nav_links(pagination, "api.card_list")
     response = jsonify(response_data)

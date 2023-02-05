@@ -17,7 +17,12 @@ set_pagination_reqparser.add_argument(
     name="page", location="args", type=positive, required=False, default=1
 )
 set_pagination_reqparser.add_argument(
-    name="per_page", location="args", type=positive, required=False, choices=[5, 10, 25, 50, 100], default=10
+    name="per_page",
+    location="args",
+    type=positive,
+    required=False,
+    choices=[5, 10, 25, 50, 100],
+    default=10,
 )
 
 set_user_model = Model(
@@ -25,7 +30,7 @@ set_user_model = Model(
     {
         "email": String,
         "public_id": String,
-    }
+    },
 )
 
 set_model = Model(
@@ -38,4 +43,3 @@ set_model = Model(
 )
 
 set_pagination_model = generate_pagination_model(set_model)
-

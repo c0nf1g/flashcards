@@ -14,5 +14,5 @@ def shell():
         "BlacklistedToken": BlacklistedToken,
         "Set": Set,
         "Card": Card,
-        "Sentence": Sentence
+        "Sentence": Sentence,
     }

@@ -29,7 +29,9 @@ def create_set(request_data):
 @token_required
 def retrieve_set_list(page, per_page):
     user = User.find_by_public_id(retrieve_set_list.public_id)
-    pagination = Set.query.filter_by(user_id=user.id).paginate(page=page, per_page=per_page)
+    pagination = Set.query.filter_by(user_id=user.id).paginate(
+        page=page, per_page=per_page
+    )
     response_data = marshal(pagination, set_pagination_model)
     response_data["links"] = add_nav_links(pagination, "api.set_list")
     response = jsonify(response_data)
@@ -52,7 +54,7 @@ def update_set(set_id, request_data):
         for k, v in request_data.items():
             setattr(set, k, v)
         db.session.commit()
-        message = f"Set was successfully updated"
+        message = f"Set {set.name} was successfully updated"
         response_dict = dict(status="success", message=message)
         return response_dict, HTTPStatus.OK
     else:
