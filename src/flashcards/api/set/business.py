@@ -4,7 +4,7 @@ from flask import jsonify
 from flask_restx import marshal, abort
 
 from flashcards import db
-from flashcards.api.auth.decorators import token_required
+from flashcards.api.common.decorators import token_required
 from flashcards.api.common.business import add_nav_links
 from flashcards.api.set.dto import set_pagination_model
 from flashcards.models.set import Set

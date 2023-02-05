@@ -4,7 +4,7 @@ from flask import jsonify, current_app
 from flask_restx import abort
 
 from flashcards import db
-from flashcards.api.auth.decorators import token_required
+from flashcards.api.common.decorators import token_required
 from flashcards.models.token_blacklist import BlacklistedToken
 from flashcards.models.user import User
 from flashcards.utils.datetime_util import (
