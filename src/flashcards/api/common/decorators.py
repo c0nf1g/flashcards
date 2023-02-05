@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask import request
 
-from flashcards.api.exceptions import ApiUnauthorized
+from flashcards.api.common.exceptions import ApiUnauthorized
 from flashcards.models.user import User
 
 

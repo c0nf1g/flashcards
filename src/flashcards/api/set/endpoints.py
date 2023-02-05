@@ -3,9 +3,21 @@ from http import HTTPStatus
 from flask_restx import Namespace, Resource
 
 from flashcards.api.common.dto import nav_links_model
-from flashcards.api.set.business import retrieve_set_list, create_set, retrieve_set, update_set, delete_set
-from flashcards.api.set.dto import set_pagination_model, set_model, set_user_model, set_pagination_reqparser, create_set_reqparser, \
-    update_set_reqparser
+from flashcards.api.set.business import (
+    retrieve_set_list,
+    create_set,
+    retrieve_set,
+    update_set,
+    delete_set,
+)
+from flashcards.api.set.dto import (
+    set_pagination_model,
+    set_model,
+    set_user_model,
+    set_pagination_reqparser,
+    create_set_reqparser,
+    update_set_reqparser,
+)
 
 set_ns = Namespace(name="sets", validate=True)
 set_ns.models[set_pagination_model.name] = set_pagination_model

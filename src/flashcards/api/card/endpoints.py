@@ -3,10 +3,24 @@ from http import HTTPStatus
 from flask_restx import Namespace, Resource
 
 from flashcards.api.common.dto import nav_links_model
-from flashcards.api.card.business import create_card, update_card, retrieve_card_list, retrieve_card, delete_card
-from flashcards.api.card.dto import card_pagination_model, card_model, card_set_model, \
-    card_sentence_model, create_card_model, create_card_reqparser, update_card_model, update_card_reqparser, \
-    card_pagination_reqparser
+from flashcards.api.card.business import (
+    create_card,
+    update_card,
+    retrieve_card_list,
+    retrieve_card,
+    delete_card,
+)
+from flashcards.api.card.dto import (
+    card_pagination_model,
+    card_model,
+    card_set_model,
+    card_sentence_model,
+    create_card_model,
+    create_card_reqparser,
+    update_card_model,
+    update_card_reqparser,
+    card_pagination_reqparser,
+)
 
 card_ns = Namespace(name="cards", validate=True)
 card_ns.models[card_pagination_model.name] = card_pagination_model

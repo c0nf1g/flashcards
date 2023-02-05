@@ -15,7 +15,7 @@ INSTALL_REQUIRES = [
     "requests",
     "psycopg2",
     "werkzeug==2.1.2",
-    "SQLAlchemy==1.4.44"
+    "SQLAlchemy==1.4.44",
 ]
 
 EXTRAS_REQUIRE = {
@@ -29,7 +29,8 @@ EXTRAS_REQUIRE = {
         "pytest-dotenv",
         "pytest-flake8",
         "pytest-flask",
-        "tox"
+        "pytest-html",
+        "tox",
     ]
 }
 
