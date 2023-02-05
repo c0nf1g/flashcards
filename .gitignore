@@ -146,3 +146,6 @@ cython_debug/
 
 # PyCharm
 .idea/
+
+# Pytest report
+report.html
